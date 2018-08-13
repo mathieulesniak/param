@@ -28,3 +28,14 @@ func TestQueryIntParam(t *testing.T) {
 		t.Fatalf(`Unexpected result, got: %q`, res)
 	}
 }
+
+func TestQueryHasParam(t *testing.T) {
+	r, _ := http.NewRequest("GET", "/my/path?my_param=1", nil)
+	if res := QueryHasParam(r, "my_param"); !res {
+		t.Fatalf(`Unexpected result, got: %t`, res)
+	}
+
+	if res := QueryHasParam(r, "my_param2"); res {
+		t.Fatalf(`Unexpected result, got: %t`, res)
+	}
+}

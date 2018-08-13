@@ -24,3 +24,10 @@ func QueryInt64Param(request *http.Request, paramName string, defaultValue int64
 
 	return convertedValue
 }
+
+// QueryHasParam check if paramName is in request uri
+func QueryHasParam(request *http.Request, paramName string) bool {
+	_, ok := request.URL.Query()[paramName]
+
+	return ok
+}
