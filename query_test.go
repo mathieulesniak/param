@@ -29,6 +29,18 @@ func TestQueryIntParam(t *testing.T) {
 	}
 }
 
+func TestQueryStringParam(t *testing.T) {
+	r, _ := http.NewRequest("GET", "/my/path?my_param=myString", nil)
+
+	if res := QueryStringParam(r, "my_param", "anotherString"); res != "myString" {
+		t.Fatalf(`Unexpected result, got: %q`, res)
+	}
+
+	if res := QueryStringParam(r, "my_param_missing", "zeDefaultValue"); res != "zeDefaultValue" {
+		t.Fatalf(`Unexpected result, got: %q`, res)
+	}
+}
+
 func TestQueryHasParam(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/my/path?my_param=1", nil)
 	if res := QueryHasParam(r, "my_param"); !res {

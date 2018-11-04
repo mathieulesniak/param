@@ -25,6 +25,15 @@ func QueryInt64Param(request *http.Request, paramName string, defaultValue int64
 	return convertedValue
 }
 
+// QueryStringParam get a query string parameter as string, fallback to defaultValue otherwise
+func QueryStringParam(request *http.Request, paramName string, defaultValue string) string {
+	value := request.URL.Query().Get(paramName)
+	if value == "" {
+		value = defaultValue
+	}
+	return value
+}
+
 // QueryHasParam check if paramName is in request uri
 func QueryHasParam(request *http.Request, paramName string) bool {
 	_, ok := request.URL.Query()[paramName]
